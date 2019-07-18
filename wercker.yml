@@ -27,7 +27,8 @@ build:
             username: $DOCKER_USERNAME
             password: $DOCKER_PASSWORD
             repository: $DOCKER_REPO
-            registry: https://phx.ocir.io/v2
+            #Ganesh commented out: registry: https://phx.ocir.io/v2
+            registry: https://us-ashburn-1.ocir.io/v2
 
 deploy-to-kubernetes:
     box: python:2.7
