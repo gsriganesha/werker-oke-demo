@@ -77,5 +77,5 @@ deploy-to-kubernetes:
         server: $OKE_MASTER
         token: $OKE_TOKEN
         insecure-skip-tls-verify: true
-        raw-global-args: -n wercker
+        #raw-global-args: -n wercker
         command: rollout status deployment/get-ip
