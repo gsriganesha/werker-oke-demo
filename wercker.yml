@@ -80,4 +80,4 @@ deploy-to-kubernetes:
         insecure-skip-tls-verify: true
         #Ganesh commented out
         #command: rollout status deployment/get-ip
-        command: rollout status deployment/helloworld
+        command: rollout status deployment/get-ip
