@@ -27,7 +27,8 @@ build:
             username: $DOCKER_USERNAME
             password: $DOCKER_PASSWORD
             repository: $DOCKER_REPO
-            #Ganesh commented out: registry: https://phx.ocir.io/v2
+            #Ganesh commented out: 
+            #registry: https://phx.ocir.io/v2
             registry: https://us-ashburn-1.ocir.io/v2
 
 deploy-to-kubernetes:
@@ -55,15 +56,21 @@ deploy-to-kubernetes:
         token: $OKE_TOKEN
         insecure-skip-tls-verify: true
         command: apply -f $WERCKER_OUTPUT_DIR/kubernetes/
-
+    
+    # wait 10 seconds
+    - script:
+        name: Wait for deployment to exist
+        code: sleep 10
+        
     # Tell Kubernetes that we're going to wait 60 seconds for the deploy to be successful
-    - kubectl:
-        name: set deployment timeout
-        server: $OKE_MASTER
-        token: $OKE_TOKEN
-        insecure-skip-tls-verify: true
-        command: patch deployment/get-ip -p '{"spec":{"progressDeadlineSeconds":300}}'
-
+    #- kubectl:
+    #   name: set deployment timeout
+    #   server: $OKE_MASTER
+    #   token: $OKE_TOKEN
+    #   insecure-skip-tls-verify: true
+    #   Ganesh commented out
+    #   command: patch deployment/get-ip -p '{"spec":{"progressDeadlineSeconds":300}}'
+    #   command: patch deployment/helloworld -p '{"spec":{"progressDeadlineSeconds":300}}'
     # Watch the Kubernetes deployment. Once the pods are considered healthy the step will exit 0
     # If they aren't healthy within 60 seconds, it will exit with a non 0 exit code, and cause the run to fail.
     - kubectl:
@@ -71,4 +78,6 @@ deploy-to-kubernetes:
         server: $OKE_MASTER
         token: $OKE_TOKEN
         insecure-skip-tls-verify: true
-        command: rollout status deployment/get-ip
+        #Ganesh commented out
+        #command: rollout status deployment/get-ip
+        command: rollout status deployment/helloworld
