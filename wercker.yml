@@ -29,7 +29,7 @@ build:
             repository: $DOCKER_REPO
             #Ganesh commented out: 
             #registry: https://phx.ocir.io/v2
-            registry: https://us-ashburn-1.ocir.io/v2
+            registry: iad.ocir.io/v2
 
 deploy-to-kubernetes:
     box: python:2.7
