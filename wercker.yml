@@ -57,25 +57,24 @@ deploy-to-kubernetes:
         insecure-skip-tls-verify: true
         command: apply -f $WERCKER_OUTPUT_DIR/kubernetes/
     
-    # wait 10 seconds
-    - script:
-        name: Wait for deployment to exist
-        code: sleep 10
+   # wait 10 seconds
+   # - script:
+   #     name: Wait for deployment to exist
+   #     code: sleep 10
         
     # Tell Kubernetes that we're going to wait 60 seconds for the deploy to be successful
-    #- kubectl:
-    #   Ganesh commented out
-    #   name: set deployment timeout
-    #   server: $OKE_MASTER
-    #   token: $OKE_TOKEN
-    #   insecure-skip-tls-verify: true
-    #   command: patch deployment/get-ip -p '{"spec":{"progressDeadlineSeconds":300}}'
     # Watch the Kubernetes deployment. Once the pods are considered healthy the step will exit 0
     # If they aren't healthy within 60 seconds, it will exit with a non 0 exit code, and cause the run to fail.
     - kubectl:
-        name: check deployment status
-        server: $OKE_MASTER
-        token: $OKE_TOKEN
-        insecure-skip-tls-verify: true
-        #raw-global-args: -n wercker
-        command: rollout status deployment/get-ip
+       name: set deployment timeout
+       server: $OKE_MASTER
+       token: $OKE_TOKEN
+       insecure-skip-tls-verify: true
+       command: patch deployment/get-ip -p '{"spec":{"progressDeadlineSeconds":300}}'
+    #- kubectl:
+    #    name: check deployment status
+    #    server: $OKE_MASTER
+    #    token: $OKE_TOKEN
+    #    insecure-skip-tls-verify: true
+    #    #raw-global-args: -n wercker
+    #    command: rollout status deployment/get-ip
