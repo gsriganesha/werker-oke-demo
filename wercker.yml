@@ -5,7 +5,7 @@ build:
     - script:
         name: chmod
         code: |
-          chmod +x ./bin/tests
+          chmod +x ./bin/tests 
           chmod +x ./bin/get_ip
           chmod +x ./bin/activate_env
 
